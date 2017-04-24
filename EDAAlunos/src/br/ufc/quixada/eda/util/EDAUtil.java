@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import br.ufc.quixada.eda.grafo.Aresta;
 import br.ufc.quixada.eda.grafo.Grafo;
-import br.ufc.quixada.eda.algoritmos.ArvoreGeradoraMinima;
+import br.ufc.quixada.eda.grafo.Aresta;
 
 public class EDAUtil {
 	/**
-	 * Ler o arquivo que contÃ©m as prioridades iniciais da lista de prioridades.
+	 * Ler o arquivo que contém as prioridades iniciais da lista de prioridades.
 	 * @param path
 	 * @return
 	 * @throws IOException
@@ -28,44 +27,29 @@ public class EDAUtil {
         return entrada;
     }
     
-    public static Grafo lerGrafo(String path) throws IOException{
+    public static Grafo grafo(String path) throws IOException{
+    	Grafo g = null;
     	Scanner scanner = new Scanner(new FileReader(path)).useDelimiter(" |\r\n");
-    	Grafo g = new Grafo(scanner.nextInt(), scanner.nextInt());
-    	Aresta arestas[] = new Aresta[g.getQtdAresta()];
-    	
-    		int pos = 0;
-    	while(scanner.hasNext()){
-    			arestas[pos] = new Aresta(scanner.nextInt(), scanner.nextInt(), scanner.nextDouble());
-    			pos++;
-    	}
-    	scanner.close();
-    	g.setArestas(arestas);
-    	return g;
-    }
-    /*
-    
-    public static Grafo lerGrafo(String path) throws IOException{
-    	Scanner scanner = new Scanner(new FileReader(path)).useDelimiter(" |\r\n");
-    	Grafo g = new Grafo();
-    	Aresta arestas[] = new Aresta[g.getQtdAresta() * 2];
     	
     	if(scanner.hasNext()){
-    		g.setQtdAresta(scanner.nextInt());
-    		g.setQtdVertice(scanner.nextInt()); 
-    	}
+    		g = new Grafo(scanner.nextInt(), scanner.nextInt());
     		int pos = 0;
-    	while(scanner.hasNext()){
-    			arestas[pos] = new Aresta(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+    		while(scanner.hasNext()){
+    			//Aresta a = new Aresta(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+    			//g.add(a);
+    			Aresta b = new Aresta(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+    			if(pos <= g.getArestas().length){
+    				g.getArestas()[pos] = b;
+    			}
     			pos++;
+    		}
     	}
     	scanner.close();
-    	g.setArestas(arestas);
     	return g;
     }
-    */
     
     /**
-     * Ler as operaÃ§Ãµes que serÃ£o realizadas na lista de prioridades apÃ³s a sua criaÃ§Ã£o.
+     * Ler as operações que serão realizadas na lista de prioridades após a sua criação.
      * @param path
      * @return
      * @throws IOException
@@ -78,5 +62,5 @@ public class EDAUtil {
 			
 		scanner.close();
         return operacoes;
-    }       
+    }    
 }

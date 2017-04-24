@@ -10,15 +10,13 @@ import java.util.List;
  *
  */
 public class LPMaximaOrdenada {
-	private int n = 0;
-	private int nMaximo;
+	private int nMaximo = 0;
 	private int vetor[] = null;
+	private int n = 0;
 	
-
-	
-	public LPMaximaOrdenada(int nMaximo){
-		this.nMaximo = nMaximo;
-		vetor = new int [nMaximo];		
+	public LPMaximaOrdenada(int Nmaximo){
+		nMaximo = Nmaximo;
+		vetor = new int[Nmaximo];
 	}
 	
 	public void contruir(List<Integer> entrada){
@@ -26,9 +24,7 @@ public class LPMaximaOrdenada {
 			vetor[i] = entrada.get(i);
 		}
 		n = entrada.size();
-		quickSort(0, n);
-		
-		
+		quickSort(0 , n);
 	}
 	
 	public int getMaximaPrioridade(){
@@ -36,16 +32,19 @@ public class LPMaximaOrdenada {
 	}
 	
 	public int remove(){
-		if (n <= 0)
-			return -1;
-		return vetor[n--];
+		if(n > 0){
+			int aux = vetor[n];
+			n--;
+			return aux;
+		}
+		return -1;
 	}	
 	
 	public void inserir(int prioridade){
-		if(n + 1 > nMaximo){
-			int i = n -1;
+		if(n + 1 < nMaximo){
+			int i = n - 1;
 			if(vetor[i] > prioridade){
-				while (i >= 0){
+				while(i >= 0){
 					vetor[i + 1] = vetor[i];
 					i--;
 				}
@@ -57,13 +56,13 @@ public class LPMaximaOrdenada {
 	
 	public void alterarPrioridade(int prioridade, int novaPrioridade){
 		if(n > 0){
-			int i = 0 ;
-			while(i < n){
-				if(vetor[i] == prioridade)
+			int i = 0;
+			for( ; i < n; i++){
+				if(vetor[i] == prioridade){
 					break;
-				i++;
+				}
 			}
-			while(i < n -1){
+			while(i < n - 1){
 				vetor[i] = vetor[i + 1];
 				i++;
 			}

@@ -1,11 +1,12 @@
 package br.ufc.quixada.eda.grafo;
 
 public class Aresta {
+
 	private int v;
 	private int u;
-	private double peso;
+	private int peso;
 	
-	public Aresta(int v, int u, double peso) {
+	public Aresta(int v, int u, int peso) {
 		this.v = v;
 		this.u = u;
 		this.peso = peso;
@@ -23,10 +24,11 @@ public class Aresta {
 	public void setU(int u) {
 		this.u = u;
 	}
-	public double getPeso() {
+	public int getPeso() {
 		return peso;
 	}
 	public void setPeso(int peso) {
 		this.peso = peso;
 	}
+		
 }

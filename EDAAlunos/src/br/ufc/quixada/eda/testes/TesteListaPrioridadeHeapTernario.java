@@ -12,13 +12,13 @@ import br.ufc.quixada.eda.util.Operacao;
 public class TesteListaPrioridadeHeapTernario {
 	public static void main(String args[]){		
 		try {
-			for (int tamanho : CriarInstancia.tamanhoInstanciasLP) {				
-				String path = EDAConstants.listaPrioridade + "tarefa" + tamanho + ".txt";
+			for (int tamanho : CriarInstancia.tamanhoInstancias) {				
+				String path = EDAConstants.caminhoPasta + "tarefa" + tamanho + ".txt";
 				List<Integer> entrada = EDAUtil.getDadosIniciais(path);
 				
 				//PARA ARQUIVO COM MAIOR QUANTIDADE DE INSER��ES
 				String arquivoOperacao = "operacoesI_" + tamanho;
-				path = EDAConstants.listaPrioridade + arquivoOperacao + ".txt";
+				path = EDAConstants.caminhoPasta + arquivoOperacao + ".txt";
 				List<Operacao> operacoes = EDAUtil.getOperacoes(path);
 				
 				
@@ -46,7 +46,7 @@ public class TesteListaPrioridadeHeapTernario {
 				
 				//PARA ARQUIVO COM MAIOR QUANTIDADE DE ALTERA��ES
 				arquivoOperacao = "operacoesA_" + tamanho;
-				path = EDAConstants.listaPrioridade + arquivoOperacao + ".txt";
+				path = EDAConstants.caminhoPasta + arquivoOperacao + ".txt";
 				operacoes = EDAUtil.getOperacoes(path);
 				
 				tempoInicial = System.currentTimeMillis();				
@@ -72,7 +72,7 @@ public class TesteListaPrioridadeHeapTernario {
 				
 				//Para arquivo com maior quantidade de remocao
 				arquivoOperacao = "operacoesR_" + tamanho;
-				path = EDAConstants.listaPrioridade + arquivoOperacao + ".txt";
+				path = EDAConstants.caminhoPasta + arquivoOperacao + ".txt";
 				operacoes = EDAUtil.getOperacoes(path);
 				
 				tempoInicial = System.currentTimeMillis();				
@@ -98,7 +98,7 @@ public class TesteListaPrioridadeHeapTernario {
 				
 				//Para arquivo com maior quantidade de selecao
 				arquivoOperacao = "operacoesS_" + tamanho;
-				path = EDAConstants.listaPrioridade + arquivoOperacao + ".txt";
+				path = EDAConstants.caminhoPasta + arquivoOperacao + ".txt";
 				operacoes = EDAUtil.getOperacoes(path);
 				
 				tempoInicial = System.currentTimeMillis();				

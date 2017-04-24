@@ -4,6 +4,7 @@ public class Grafo {
 	private int qtdVertice;
 	private int qtdAresta;
 	private Aresta arestas[];
+	private ListaAdjacencia adj[];
 	
 	public Grafo(int a, int b) {
 		qtdVertice = a;
@@ -62,4 +63,14 @@ public class Grafo {
 		arestas[j] = aux;
 		return q + 1;
 	}
+
+	public ListaAdjacencia[] getAdj() {
+		return adj;
+	}
+
+	public void setAdj(ListaAdjacencia[] adj) {
+		this.adj = adj;
+	}
+	
+	
 }
