@@ -10,7 +10,7 @@ import br.ufc.quixada.eda.util.CriarInstancia;
 import br.ufc.quixada.eda.util.EDAConstants;
 import br.ufc.quixada.eda.util.EDAUtil;
 
-public class TesteGrafosKraskal {
+public class TesteDijkstra {
 	public static void main(String args[]){
 		try {
 			for (int tamanho : CriarInstancia.tamanhoInstanciasGK) {	

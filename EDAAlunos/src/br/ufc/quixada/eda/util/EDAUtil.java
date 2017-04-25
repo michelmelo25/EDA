@@ -27,7 +27,7 @@ public class EDAUtil {
         return entrada;
     }
     
-    public static Grafo grafo(String path) throws IOException{
+    public static Grafo lerGrafo(String path) throws IOException{
     	Grafo g = null;
     	Scanner scanner = new Scanner(new FileReader(path)).useDelimiter(" |\r\n");
     	
