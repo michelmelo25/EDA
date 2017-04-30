@@ -9,6 +9,7 @@ public class EnderecamentoInterno2 extends Hash{
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	@Override
 	public void inserir(Integer chave, String valor) {
 		Integer n = fHash(chave);
