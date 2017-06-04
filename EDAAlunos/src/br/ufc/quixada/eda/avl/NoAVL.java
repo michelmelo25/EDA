@@ -1,5 +1,5 @@
 package br.ufc.quixada.eda.avl;
- 
+  
 public class NoAVL {
 	private NoAVL esq;
 	private NoAVL dir;

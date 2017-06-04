@@ -1,5 +1,5 @@
 package br.ufc.quixada.eda.avl;
-
+ 
 public class AVL {
 	private NoAVL raiz = null;
 	
