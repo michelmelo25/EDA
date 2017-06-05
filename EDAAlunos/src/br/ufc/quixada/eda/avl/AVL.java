@@ -1,5 +1,5 @@
 package br.ufc.quixada.eda.avl;
-  
+
 public class AVL {
 	private NoAVL raiz = null;
 	
@@ -14,25 +14,30 @@ public class AVL {
 		}
 		if(raiz.getChave() > chave){
 			raiz.setEsq(inserir(raiz.getEsq(), chave));
-			if((altura(raiz.getEsq()) - altura(raiz.getDir())) == 2){
-				if(altura(raiz.getEsq().getEsq()) > altura(raiz.getEsq().getDir())){
-					raiz = rotacaoDireita(raiz);
-				} else{
-					raiz = rotacaoDuplaDireita(raiz);
+			if((altura(raiz.getEsq()) - altura(raiz.getDir())) != 1){
+				if((altura(raiz.getDir()) - altura(raiz.getEsq())) != 0){
+					if(altura(raiz.getEsq().getEsq()) > altura(raiz.getEsq().getDir())){
+						raiz = rotacaoDireita(raiz);
+					} else{
+						raiz = rotacaoDuplaDireita(raiz);
+					}
+			
 				}
 			}
-			
 		}else if(raiz.getChave() < chave){
 			raiz.setDir(inserir(raiz.getDir(),chave));
-			if((altura(raiz.getDir()) - altura(raiz.getEsq())) == 2){
-				if(altura(raiz.getDir().getDir()) > altura(raiz.getDir().getEsq())){
-					raiz = rotacaoEsqueda(raiz);
-				} else {
-					raiz = rotacaoDuplaEsquerda(raiz);
-				}
-			}
+			if((altura(raiz.getDir()) - altura(raiz.getEsq())) != 1){
+				if((altura(raiz.getDir()) - altura(raiz.getEsq())) != 0){
+					if(altura(raiz.getDir().getDir()) > altura(raiz.getDir().getEsq())){
+						raiz = rotacaoEsqueda(raiz);
+					} else {
+						raiz = rotacaoDuplaEsquerda(raiz);
+					}
+			}  }
 		}
 		raiz.setAltura(max(altura(raiz.getDir()), altura(raiz.getEsq())));
+		raiz = balanceamento(raiz);
+		raiz = balanceamento(raiz);
 		return raiz;
 	}
 	
@@ -44,23 +49,13 @@ public class AVL {
 		NoAVL aux = raiz.getEsq();
 		raiz.setEsq(aux.getDir());
 		aux.setDir(raiz);
-		
-		if(altura(raiz.getEsq().getEsq()) > altura(raiz.getEsq().getDir())){
-			raiz.getEsq().setAltura(altura(raiz.getEsq().getEsq()) + 1);
-		}else{
-			raiz.getEsq().setAltura(altura(raiz.getEsq().getDir()) + 1);
-		}
-		
-		if(altura(aux.getDir().getEsq()) > altura(aux.getDir().getDir())){
-			aux.getDir().setAltura(altura(aux.getDir().getEsq()) + 1);
-		}else{
-			aux.getDir().setAltura(altura(aux.getDir().getDir()) + 1);
-		}
+		raiz.setAltura(max(altura(raiz.getEsq()), altura(raiz.getDir())) + 1);
+		aux.setAltura(max(altura(aux.getEsq()), altura(raiz.getDir())) + 1);
 		return aux;
 	}
 	
 	private NoAVL rotacaoDuplaDireita(NoAVL raiz){
-		raiz = rotacaoEsqueda(raiz);
+		raiz = rotacaoEsqueda(raiz.getEsq());
 		return rotacaoDireita(raiz);
 	}
 	
@@ -68,27 +63,50 @@ public class AVL {
 		NoAVL aux = raiz.getDir();
 		raiz.setDir(aux.getEsq());
 		aux.setEsq(raiz);
-		
-		if(altura(raiz.getDir().getEsq()) > altura(raiz.getDir().getDir())){
-			raiz.getDir().setAltura(altura(raiz.getDir().getEsq()) + 1);
-		}else{
-			raiz.getDir().setAltura(altura(raiz.getDir().getDir()) + 1);
-		}
-		
-		if(altura(aux.getEsq().getEsq()) > altura(aux.getDir().getDir())){
-			aux.getEsq().setAltura(altura(aux.getEsq().getEsq()) + 1);
-		}else{
-			aux.getEsq().setAltura(altura(aux.getEsq().getDir()) + 1);
-		}
+		raiz.setAltura(max(altura(raiz.getDir()), altura(raiz.getEsq())) + 1);
+		aux.setAltura(max(altura(aux.getDir()), altura(raiz.getEsq())) + 1);
 		return aux;
 	}
 	
 	private NoAVL rotacaoDuplaEsquerda(NoAVL raiz){
-		raiz = rotacaoDireita(raiz);
+		raiz = rotacaoDireita(raiz.getDir());
 		return rotacaoEsqueda(raiz);
 	}
 	
+	public void showTime(){
+		showTime(raiz);
+	}
+	
+	private void showTime(NoAVL no){
+		if(no == null) return;
+		System.out.println(no.getChave() + " " + altura(no));
+		showTime(no.getDir());
+		showTime(no.getEsq());
+	} 
+	
 	private int altura(NoAVL raiz){
 		return (raiz != null ? raiz.getAltura() : 0);
+	}
+	
+	private int difAltura(NoAVL r) {
+		return altura(r.getEsq()) - altura(r.getDir());
+	}
+	
+	public NoAVL balanceamento(NoAVL r) {
+		if(difAltura(r) == 2) {
+			if(difAltura(r.getEsq()) > 0) {
+				r = rotacaoDireita(r);
+			}else {
+				r = rotacaoDuplaDireita(r);
+			}
+		}else if(difAltura(r) == -2) {
+			if(difAltura(r.getDir()) < 0) {
+				r = rotacaoEsqueda(r);
+			}else {
+				r = rotacaoDuplaEsquerda(r);
+			}
+		}
+		r.setAltura(max(altura(r.getEsq()), altura(r.getDir())) + 1);
+		return r;
 	}
 }
