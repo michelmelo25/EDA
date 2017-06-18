@@ -1,5 +1,5 @@
 package br.ufc.quixada.eda.rubronegra;
- 
+  
 public class RubroNegra {
 
 	private No raiz;
