@@ -1,34 +1,36 @@
 package br.ufc.quixada.eda.rubronegra;
-  
-public class No {
 
-	private No esq;
-	private No dir;
+public class No<E> {
+
+	private No<?> esq;
+	private No<?> dir;
 	private int chave;
+	private E elemento;
 	private boolean cor;
 	public static final boolean PRETO = true;
 	public static final boolean VERMELHO = false;
 	
-	public No(int chave){
+	public No(int chave, E elemento){
 		this.chave = chave;
 		esq = null;
 		dir = null;
 		cor = VERMELHO;
+		this.setElemento(elemento);
 	}
 
-	public No getEsq() {
+	public No<?> getEsq() {
 		return esq;
 	}
 
-	public void setEsq(No esq) {
+	public void setEsq(No<?> esq) {
 		this.esq = esq;
 	}
 
-	public No getDir() {
+	public No<?> getDir() {
 		return dir;
 	}
 
-	public void setDir(No dir) {
+	public void setDir(No<?> dir) {
 		this.dir = dir;
 	}
 
@@ -46,6 +48,14 @@ public class No {
 
 	public void setCor(boolean cor) {
 		this.cor = cor;
+	}
+
+	public E getElemento() {
+		return elemento;
+	}
+
+	public void setElemento(E elemento) {
+		this.elemento = elemento;
 	}
 	
 }

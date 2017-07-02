@@ -1,29 +1,27 @@
 package br.ufc.quixada.eda.rubronegra;
-  
-public class RubroNegra {
 
-	private No raiz;
+public class RubroNegra<T> {
+
+	private No<?> raiz;
 	
 	public RubroNegra(){
 		raiz = null;
 	}
 	
-	public void add(int chave){
-		raiz = add(chave, raiz);
+	public void add(int chave, T elemento){
+		raiz = add(chave, raiz, elemento);
 		raiz.setCor(No.PRETO);
 	}
 	
-	private No add(int chave, No raiz){
+	private No<?> add(int chave, No<?> raiz, T elemento){
 		if(raiz == null){
-			No no = new No(chave);
-			show();
-			System.out.println();
+			No<?> no = new No<>(chave, elemento);
 			return no;
 		}
 		if(chave < raiz.getChave()){
-			raiz.setEsq(add(chave, raiz.getEsq()));
+			raiz.setEsq(add(chave, raiz.getEsq(), elemento));
 		}else if(chave > raiz.getChave()){
-			raiz.setDir(add(chave, raiz.getDir()));	
+			raiz.setDir(add(chave, raiz.getDir(), elemento));	
 		}
 		
 		if(isVermelho(raiz.getDir()) && isVermelho(raiz.getEsq()) && isVermelho(raiz.getEsq().getEsq())){
@@ -52,11 +50,11 @@ public class RubroNegra {
 		return raiz;
 	}
 	
-	public No busca(int chave){
+	public No<?> busca(int chave){
 		return busca(raiz, chave);
 	}
 	
-	private No busca(No no, int chave){
+	private No<?> busca(No<?> no, int chave){
 		if(chave == no.getChave()) return no;
 		if(chave < no.getChave()){
 			return busca(no.getEsq(), chave);
@@ -66,27 +64,27 @@ public class RubroNegra {
 		return null;
 	}
 	
-	private No rotacaoDireita(No raiz){
-		No aux = raiz.getEsq();
+	private No<?> rotacaoDireita(No<?> raiz){
+		No<?> aux = raiz.getEsq();
 		raiz.setEsq(aux.getDir());
 		aux.setDir(raiz);
 		return aux;
 	}
 	
-	private No rotacaoEsqueda(No raiz){
-		No aux = raiz.getDir();
+	private No<?> rotacaoEsqueda(No<?> raiz){
+		No<?> aux = raiz.getDir();
 		raiz.setDir(aux.getEsq());
 		aux.setEsq(raiz);
 		return aux;
 	}
-	
-	public boolean isPreto(No no){
+	 
+	public boolean isPreto(No<?> no){
 		if(no == null) return true;
 		if(no.isCor() == No.PRETO) return true;
 		return false;
 	}
 	
-	public boolean isVermelho(No no){
+	public boolean isVermelho(No<?> no){
 		return !isPreto(no);
 	}
 	
@@ -94,7 +92,7 @@ public class RubroNegra {
 		show(raiz);
 	}
 	
-	private void show(No no){
+	private void show(No<?> no){
 		if(no == null) return;
 		System.out.println(no.getChave() + " " + no.isCor());
 		show(no.getEsq());
