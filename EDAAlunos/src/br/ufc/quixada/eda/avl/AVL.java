@@ -1,19 +1,19 @@
 package br.ufc.quixada.eda.avl;
 
-public class AVL {
-	private NoAVL raiz = null;
+public class AVL<T> {
+	private NoAVL<T> raiz = null;
 	
-	public void inserir(int chave){
-		this.raiz = inserir(this.raiz, chave);
+	public void inserir(int chave, T elemento){
+		this.raiz = inserir(this.raiz, chave, elemento);
 	}
 	
-	private NoAVL inserir(NoAVL raiz, int chave){
+	private NoAVL<T> inserir(NoAVL<T> raiz, int chave, T elemento){
 		if(raiz == null){
-			NoAVL no = new NoAVL(chave);
+			NoAVL<T> no = new NoAVL<>(chave, elemento);
 			return no;
 		}
 		if(raiz.getChave() > chave){
-			raiz.setEsq(inserir(raiz.getEsq(), chave));
+			raiz.setEsq(inserir(raiz.getEsq(), chave, elemento));
 			if((altura(raiz.getEsq()) - altura(raiz.getDir())) != 1){
 				if((altura(raiz.getDir()) - altura(raiz.getEsq())) != 0){
 					if(altura(raiz.getEsq().getEsq()) > altura(raiz.getEsq().getDir())){
@@ -25,7 +25,7 @@ public class AVL {
 				}
 			}
 		}else if(raiz.getChave() < chave){
-			raiz.setDir(inserir(raiz.getDir(),chave));
+			raiz.setDir(inserir(raiz.getDir(),chave, elemento));
 			if((altura(raiz.getDir()) - altura(raiz.getEsq())) != 1){
 				if((altura(raiz.getDir()) - altura(raiz.getEsq())) != 0){
 					if(altura(raiz.getDir().getDir()) > altura(raiz.getDir().getEsq())){
@@ -37,7 +37,6 @@ public class AVL {
 		}
 		raiz.setAltura(max(altura(raiz.getDir()), altura(raiz.getEsq())));
 		raiz = balanceamento(raiz);
-		raiz = balanceamento(raiz);
 		return raiz;
 	}
 	
@@ -45,8 +44,8 @@ public class AVL {
 		return (altura > altura2 ? altura : altura2);
 	}
 
-	private NoAVL rotacaoDireita(NoAVL raiz){
-		NoAVL aux = raiz.getEsq();
+	private NoAVL<T> rotacaoDireita(NoAVL<T> raiz){
+		NoAVL<T> aux = raiz.getEsq();
 		raiz.setEsq(aux.getDir());
 		aux.setDir(raiz);
 		raiz.setAltura(max(altura(raiz.getEsq()), altura(raiz.getDir())) + 1);
@@ -54,13 +53,13 @@ public class AVL {
 		return aux;
 	}
 	
-	private NoAVL rotacaoDuplaDireita(NoAVL raiz){
+	private NoAVL<T> rotacaoDuplaDireita(NoAVL<T> raiz){
 		raiz = rotacaoEsqueda(raiz.getEsq());
 		return rotacaoDireita(raiz);
 	}
 	
-	private NoAVL rotacaoEsqueda(NoAVL raiz){
-		NoAVL aux = raiz.getDir();
+	private NoAVL<T> rotacaoEsqueda(NoAVL<T> raiz){
+		NoAVL<T> aux = raiz.getDir();
 		raiz.setDir(aux.getEsq());
 		aux.setEsq(raiz);
 		raiz.setAltura(max(altura(raiz.getDir()), altura(raiz.getEsq())) + 1);
@@ -68,7 +67,7 @@ public class AVL {
 		return aux;
 	}
 	
-	private NoAVL rotacaoDuplaEsquerda(NoAVL raiz){
+	private NoAVL<T> rotacaoDuplaEsquerda(NoAVL<T> raiz){
 		raiz = rotacaoDireita(raiz.getDir());
 		return rotacaoEsqueda(raiz);
 	}
@@ -77,22 +76,22 @@ public class AVL {
 		showTime(raiz);
 	}
 	
-	private void showTime(NoAVL no){
+	private void showTime(NoAVL<T> no){
 		if(no == null) return;
 		System.out.println(no.getChave() + " " + altura(no));
 		showTime(no.getDir());
 		showTime(no.getEsq());
-	} 
+	}
 	
-	private int altura(NoAVL raiz){
+	private int altura(NoAVL<T> raiz){
 		return (raiz != null ? raiz.getAltura() : 0);
 	}
 	
-	private int difAltura(NoAVL r) {
+	private int difAltura(NoAVL<T> r) {
 		return altura(r.getEsq()) - altura(r.getDir());
 	}
 	
-	public NoAVL balanceamento(NoAVL r) {
+	public NoAVL<T> balanceamento(NoAVL<T> r) {
 		if(difAltura(r) == 2) {
 			if(difAltura(r.getEsq()) > 0) {
 				r = rotacaoDireita(r);

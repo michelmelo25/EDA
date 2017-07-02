@@ -1,31 +1,33 @@
 package br.ufc.quixada.eda.avl;
-   
-public class NoAVL {
-	private NoAVL esq;
-	private NoAVL dir;
+
+public class NoAVL<E> {
+	private NoAVL<E> esq;
+	private NoAVL<E> dir;
+	private E elemento;
 	private int altura;
 	private int chave;
 	
-	public NoAVL(int chave){
+	public NoAVL(int chave, E elemento){
 		this.esq = null;
 		this.dir = null;
 		this.altura = 1;
 		this.chave = chave;
+		this.setElemento(elemento);
 	}
 
-	public NoAVL getEsq() {
+	public NoAVL<E> getEsq() {
 		return esq;
 	}
 
-	public void setEsq(NoAVL esq) {
+	public void setEsq(NoAVL<E> esq) {
 		this.esq = esq;
 	}
 
-	public NoAVL getDir() {
+	public NoAVL<E> getDir() {
 		return dir;
 	}
 
-	public void setDir(NoAVL dir) {
+	public void setDir(NoAVL<E> dir) {
 		this.dir = dir;
 	}
 
@@ -43,6 +45,14 @@ public class NoAVL {
 
 	public void setChave(int chave) {
 		this.chave = chave;
+	}
+
+	public E getElemento() {
+		return elemento;
+	}
+
+	public void setElemento(E elemento) {
+		this.elemento = elemento;
 	}
 	
 }
